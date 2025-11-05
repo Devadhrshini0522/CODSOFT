@@ -1,0 +1,58 @@
+import java.util.Scanner;
+
+public class CurrencyConverter {
+    public static void main(String[] args) {
+        Scanner sc = new Scanner(System.in);
+
+        // Display available currencies
+        System.out.println("Available Currencies: USD, EUR, INR, GBP, JPY");
+        System.out.print("Enter base currency: ");
+        String baseCurrency = sc.next().toUpperCase();
+
+        System.out.print("Enter target currency: ");
+        String targetCurrency = sc.next().toUpperCase();
+
+        System.out.print("Enter amount to convert: ");
+        double amount = sc.nextDouble();
+
+        double convertedAmount = convertCurrency(baseCurrency, targetCurrency, amount);
+
+        if (convertedAmount != -1) {
+            System.out.printf("Converted Amount: %.2f %s\n", convertedAmount, targetCurrency);
+        } else {
+            System.out.println("Invalid currency selection!");
+        }
+
+        sc.close();
+    }
+
+    public static double convertCurrency(String base, String target, double amount) {
+        // Example exchange rates relative to USD
+        double USD = 1.0;
+        double EUR = 0.93;
+        double INR = 83.15;
+        double GBP = 0.79;
+        double JPY = 150.50;
+
+        double baseRate = 0, targetRate = 0;
+
+        switch (base) {
+            case "USD": baseRate = USD; break;
+            case "EUR": baseRate = EUR; break;
+            case "INR": baseRate = INR; break;
+            case "GBP": baseRate = GBP; break;
+            case "JPY": baseRate = JPY; break;
+        }
+
+        switch (target) {
+            case "USD": targetRate = USD; break;
+            case "EUR": targetRate = EUR; break;
+            case "INR": targetRate = INR; break;
+            case "GBP": targetRate = GBP; break;
+            case "JPY": targetRate = JPY; break;
+        }
+
+        if (baseRate == 0 || targetRate == 0) return -1; // Invalid input
+        return amount / baseRate * targetRate;  // Conversion formula
+    }
+}
